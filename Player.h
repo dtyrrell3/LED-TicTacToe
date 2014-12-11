@@ -6,11 +6,10 @@
 class Player {
     uint32_t color;
     Board board;
-    byte getMove();
-    makeMove(byte numTile);
 public:
     Player(Board board, uint32_t color);
-    takeTurn();
+    byte getMove();
+    makeMove(byte numTile);
 };
 
 #endif

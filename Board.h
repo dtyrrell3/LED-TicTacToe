@@ -20,6 +20,7 @@ public:
     victory();
     byte getMove();
     makeMove(byte numTile, uint32_t color);
+    byte boardState = byte[BOARD_SIZE];
 };
 
 #endif
