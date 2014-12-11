@@ -10,7 +10,9 @@ class Game {
     Player player1;
     Board board;
     boolean player0Turn;
+    boolean playerWon;
     boolean checkValidMove(byte numTile);
+    achievedVictory();
 public:
     Game();
     play();
