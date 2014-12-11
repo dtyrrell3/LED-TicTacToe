@@ -9,18 +9,23 @@ Game::Game() {
     player1 = Player(board, color1);
     player0Turn = true;
     playerWon = false;
+    gameDraw = false;
 }
 
 void Game::play() {
-    while(!playerWon) {
+    while(!playerWon && !gameOver) {
         takeTurn(player0);
-        if (playerWon) {
+        if (playerWon || gameOver) {
             break;
         }
         takeTurn(player1);
     }
     delay(5000); // Delay 5 seconds before victory sequence
-    board.victory();
+    if (playerWon) {
+        board.victory();    
+    } else if (gameDraw) {
+        // Nobody won.
+    }
     board.reset();
 }
 
@@ -48,4 +53,5 @@ boolean Game::checkValidMove(byte numTile) {
 void Game::achievedVictory() {
     // Check for victory
     // If victory, set playerWon to True
+    // If gameDraw, set gameDraw to True
 }

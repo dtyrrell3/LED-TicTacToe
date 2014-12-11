@@ -11,6 +11,7 @@ class Game {
     Board board;
     boolean player0Turn;
     boolean playerWon;
+    boolean gameDraw;
     boolean checkValidMove(byte numTile);
     achievedVictory();
 public:
