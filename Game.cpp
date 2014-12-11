@@ -11,7 +11,7 @@ Game::Game() {
     playerWon = false;
 }
 
-Game::play() {
+void Game::play() {
     while(!playerWon) {
         takeTurn(player0);
         if (playerWon) {
@@ -19,10 +19,12 @@ Game::play() {
         }
         takeTurn(player1);
     }
+    delay(5000); // Delay 5 seconds before victory sequence
     board.victory();
+    board.reset();
 }
 
-Game::takeTurn(Player player) {
+void Game::takeTurn(Player player) {
     boolean validMove = false;
     byte move;
     while (!validMove) {
@@ -36,13 +38,14 @@ Game::takeTurn(Player player) {
     achievedVictory();
 }
 
-Game::checkValidMove(byte numTile) {
+boolean Game::checkValidMove(byte numTile) {
     if (board.boardState[numTile]) {
         return false;
     }
     return true;
 }
 
-Game::achievedVictory() {
+void Game::achievedVictory() {
     // Check for victory
+    // If victory, set playerWon to True
 }

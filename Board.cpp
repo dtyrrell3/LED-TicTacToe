@@ -11,18 +11,43 @@ Board::Board(Adafruit_NeoPixel strip1) {
     }
 }
 
-Board::reset() {
+void Board::reset() {
     for (int i = 0; i < BOARD_SIZE; i++) {
         ledArray[i].turnOff();
     }
+    for (int i = 0; i < BOARD_SIZE; i++) {
+        boardState[i] = 0;
+    }
 }
 
-Board::pollTile(byte num) {
+boolean Board::pollTile(byte numTile) {
     /* Check if our index is within range. */
-    if (num >= BOARD_SIZE) {
+    if (numTile >= BOARD_SIZE) {
         return -1;
     }
-    TouchSensor touchSensor = touchSensorArray[num];
+    TouchSensor touchSensor = touchSensorArray[numTile];
     return touchSensor.touched();
+}
+
+byte Board::getMove() {
+    while (1) {
+        for (int i = 0; i < BOARD_SIZE; i++) {
+            if (pollTile(i)) {
+                return i;
+            }
+        }
+    }
+}
+
+void Board::makeMove(byte numTile, uint32_t color) {
+    if (numTile >= BOARD_SIZE) {
+        return -1;
+    }
+    ledArray[numTile].turnOn(color);
+    boardState[numTile] = 1;
+}
+
+void Board::victory() {
+    // Put victory sequence
 }
 
