@@ -112,7 +112,6 @@ void Board::drawR(uint32_t color) {
     strip->setPixelColor(2, color);
     strip->setPixelColor(3, color);
     strip->setPixelColor(4, color);
-    strip->setPixelColor(6, color);
     strip->setPixelColor(7, color);
     strip->setPixelColor(8, color);
     strip->setPixelColor(9, color);
@@ -149,7 +148,20 @@ void Board::drawW(uint32_t color) {
 }
 
 
-void Board::victory() {
+void Board::victory(byte *winningTiles, uint32_t winningColor) {
+    for (byte j = 0; j < 5; j++) {
+        for (byte i = 0; i < 4; i++) {
+            strip->setPixelColor(winningTiles[i], winningColor);
+        }
+        strip->show();
+        delay(500);
+        for (byte i = 0; i < 4; i++) {
+            strip->setPixelColor(winningTiles[i], 0);
+        }
+        strip->show();
+        delay(500);
+    }
+
     /* Victory sequence is the strandTest example 
      * for the LED strip. I have adapted it to work
      * with this class structure. */

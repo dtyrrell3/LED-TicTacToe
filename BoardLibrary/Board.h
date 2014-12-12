@@ -29,7 +29,7 @@ class Board {
 public:
     Board(Adafruit_NeoPixel *strip);
     void reset();
-    void victory();
+    void victory(byte *winningTiles, uint32_t winningColor);
     void draw();
     byte getMove();
     void makeMove(byte numTile, uint32_t color);

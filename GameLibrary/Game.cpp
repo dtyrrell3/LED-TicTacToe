@@ -10,6 +10,9 @@ Game::Game(Adafruit_NeoPixel *strip1) {
     player1 = new Player(board, color1);
     playerWon = false;
     gameDraw = false;
+    for (int i = 0; i < 4; i++) {
+        winningTiles[i] = 0;
+    }
 }
 
 Game::~Game() {
@@ -28,17 +31,20 @@ void Game::play() {
         takeTurn(player1);
     }
     delay(2500); // Delay 2.5 seconds before victory sequence
-    board->reset();
     if (playerWon) {
-        board->victory();    
+        board->victory(&winningTiles[0], winningColor);    
     } else if (gameDraw) {
         // Nobody won.
+        board->reset();
         board->draw();
     }
 
     board->reset();
     playerWon = false;
     gameDraw = false;
+    for (int i = 0; i < 4; i++) {
+        winningTiles[i] = 0;
+    }
 }
 
 void Game::takeTurn(Player *player) {
@@ -72,7 +78,16 @@ void Game::achievedVictory() {
             && board->getColorTile(i+4) == board->getColorTile(i+8)
             && board->getColorTile(i+8) == board->getColorTile(i+12)
             && (color == color0 || color == color1)) {
+            winningTiles[0] = i;
+            winningTiles[1] = i + 4;
+            winningTiles[2] = i + 8;
+            winningTiles[3] = i + 12;
             playerWon = true;
+            if (color == color0) {
+                winningColor = strip->Color(255, 0, 0);
+            } else {
+                winningColor = strip->Color(0, 0, 255);
+            }
             return;
         }
     }
@@ -84,7 +99,16 @@ void Game::achievedVictory() {
             && board->getColorTile(j+1) == board->getColorTile(j+2)
             && board->getColorTile(j+2) == board->getColorTile(j+3)
             && (color == color0 || color == color1)) {
+            winningTiles[0] = j;
+            winningTiles[1] = j + 1;
+            winningTiles[2] = j + 2;
+            winningTiles[3] = j + 3;
             playerWon = true;
+            if (color == color0) {
+                winningColor = strip->Color(255, 0, 0);
+            } else {
+                winningColor = strip->Color(0, 0, 255);
+            }
             return;
         }
     }
@@ -94,7 +118,16 @@ void Game::achievedVictory() {
         && board->getColorTile(5) == board->getColorTile(10)
         && board->getColorTile(10) == board->getColorTile(15)
         && (color == color0 || color == color1)) {
+        winningTiles[0] = 0;
+        winningTiles[1] = 5;
+        winningTiles[2] = 10;
+        winningTiles[3] = 15;
         playerWon = true;
+        if (color == color0) {
+                winningColor = strip->Color(255, 0, 0);
+            } else {
+                winningColor = strip->Color(0, 0, 255);
+            }
         return;
     }
     color = board->getColorTile(3);
@@ -102,7 +135,16 @@ void Game::achievedVictory() {
         && board->getColorTile(6) == board->getColorTile(9)
         && board->getColorTile(9) == board->getColorTile(12)
         && (color == color0 || color == color1)) {
+        winningTiles[0] = 3;
+        winningTiles[1] = 6;
+        winningTiles[2] = 9;
+        winningTiles[3] = 12;
         playerWon = true;
+        if (color == color0) {
+                winningColor = strip->Color(255, 0, 0);
+            } else {
+                winningColor = strip->Color(0, 0, 255);
+            }
         return;
     }
     /* If board is filled up, it's a draw. */

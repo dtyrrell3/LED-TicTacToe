@@ -17,11 +17,13 @@ class Game {
     boolean gameDraw;
     boolean checkValidMove(byte numTile);
     void achievedVictory();
+    uint32_t winningColor;
 public:
     Game(Adafruit_NeoPixel *strip);
     ~Game();
     void play();
     void takeTurn(Player *player);
+    byte winningTiles[4];
 };
 
 #endif
