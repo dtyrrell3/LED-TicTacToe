@@ -11,6 +11,8 @@ class Game {
     Board *board;
     Player *player0;
     Player *player1;
+    uint32_t color0;
+    uint32_t color1;
     boolean player0Turn;
     boolean playerWon;
     boolean gameDraw;
@@ -18,6 +20,7 @@ class Game {
     void achievedVictory();
 public:
     Game(Adafruit_NeoPixel *strip);
+    ~Game();
     void play();
     void takeTurn(Player *player);
 };

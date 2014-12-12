@@ -47,6 +47,13 @@ byte Board::getMove() {
     }
 }
 
+uint32_t Board::getColorTile(byte numTile) {
+    if (numTile >= BOARD_SIZE) {
+        return -1;
+    }
+    return ledArray[numTile].getColor();
+}
+
 void Board::makeMove(byte numTile, uint32_t color) {
     if (numTile >= BOARD_SIZE) {
         return;
@@ -57,5 +64,9 @@ void Board::makeMove(byte numTile, uint32_t color) {
 
 void Board::victory() {
     // Put victory sequence
+    for (byte i = 0; i < BOARD_SIZE; i++) {
+        ledArray[i].turnOn(strip->Color(0,100,0));
+        delay(50);
+    }
 }
 

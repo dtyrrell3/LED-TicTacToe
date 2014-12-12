@@ -15,6 +15,7 @@ public:
     void initializeWithParams(Adafruit_NeoPixel *strip, byte num, uint32_t color);
     void turnOn(uint32_t color);
     void turnOff();
+    uint32_t getColor();
 };
 
 

@@ -17,16 +17,20 @@ void LED::initializeWithParams(Adafruit_NeoPixel *strip1, byte num1, uint32_t co
 }
 
 void LED::turnOn(uint32_t color1) {
-    (*strip).setPixelColor(num, color1);
-    (*strip).show();
+    strip->setPixelColor(num, color1);
+    strip->show();
     on = true;
-    color = color;
+    color = color1;
 }
 
 void LED::turnOff() {
     Serial.println("Entering turnOff");
-    (*strip).setPixelColor(num, 0);
-    (*strip).show();
+    strip->setPixelColor(num, 0);
+    strip->show();
     on = false;
     color = 0;
+}
+
+uint32_t LED::getColor() {
+    return color;
 }

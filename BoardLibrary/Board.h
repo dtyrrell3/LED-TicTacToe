@@ -20,6 +20,7 @@ public:
     void victory();
     byte getMove();
     void makeMove(byte numTile, uint32_t color);
+    uint32_t getColorTile(byte numTile);
     byte boardState[BOARD_SIZE];
 };
 
