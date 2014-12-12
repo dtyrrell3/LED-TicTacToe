@@ -12,6 +12,7 @@ class LED {
 public:
     LED();
     LED(Adafruit_NeoPixel *strip, byte num, uint32_t color);
+    void initializeWithParams(Adafruit_NeoPixel *strip, byte num, uint32_t color);
     void turnOn(uint32_t color);
     void turnOff();
 };

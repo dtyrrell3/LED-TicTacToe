@@ -3,11 +3,11 @@
 Board::Board(Adafruit_NeoPixel *strip1) {
     strip = strip1;
     for (int i = 0; i < BOARD_SIZE; i++) {
-        ledArray[i] = LED(strip, i, 0);
+        ledArray[i].initializeWithParams(strip, i, 0);
     }
-    touchSensorArray[0] = TouchSensor(3, 17, 0);
+    touchSensorArray[0].initializeWithParams(4, 17, 0);
     for (byte i = 1; i < BOARD_SIZE; i++) {
-        touchSensorArray[i] = TouchSensor(3, i + 1, i);
+        touchSensorArray[i].initializeWithParams(4, i + 1, i);
     }
     for (int i = 0; i < BOARD_SIZE; i++) {
         boardState[i] = 0;
@@ -15,7 +15,10 @@ Board::Board(Adafruit_NeoPixel *strip1) {
 }
 
 void Board::reset() {
+    Serial.println("Entering Reset");
     for (int i = 0; i < BOARD_SIZE; i++) {
+        Serial.print("Turning off LED ");
+        Serial.println(i);
         ledArray[i].turnOff();
     }
     for (int i = 0; i < BOARD_SIZE; i++) {
@@ -30,8 +33,7 @@ boolean Board::pollTile(byte numTile) {
     }
     Serial.print("Checking tile ");
     Serial.println(numTile);
-    TouchSensor touchSensor = touchSensorArray[numTile];
-    return touchSensor.touched();
+    return touchSensorArray[numTile].touched();
 }
 
 byte Board::getMove() {

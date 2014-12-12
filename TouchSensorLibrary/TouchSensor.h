@@ -11,6 +11,7 @@ class TouchSensor {
 public:
     TouchSensor();
     TouchSensor(byte sensitivity, byte pin, byte position);
+    void initializeWithParams(byte sensitivity, byte pin, byte position);
     boolean touched();
 };
 

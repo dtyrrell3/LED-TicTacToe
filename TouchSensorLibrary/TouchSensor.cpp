@@ -5,9 +5,15 @@ TouchSensor::TouchSensor() {
 }
 
 TouchSensor::TouchSensor(byte sensitivity1, byte pin1, byte position1) {
-    sensitivity = 3;
+    sensitivity = sensitivity1;
     pin = pin1;
     position = position1;
+}
+
+void TouchSensor::initializeWithParams(byte sensitivity1, byte pin1, byte position1) {
+    sensitivity = sensitivity1;
+    pin = pin1;
+    position = position1; 
 }
 
 boolean TouchSensor::touched() {
@@ -17,12 +23,12 @@ boolean TouchSensor::touched() {
     // Serial.print(sensorValue);
     // Serial.print(" with a sensitity of ");
     // Serial.println(sensitivity);
-    if (sensorValue >= 3) {
+    if (sensorValue >= sensitivity) {
         Serial.print("Received value of ");
         Serial.print(sensorValue);
         Serial.print(" with a sensitity of ");
-        //Serial.println(sensitivity);
-        Serial.println(3);
+        Serial.println(sensitivity);
+        // Serial.println(3);
         return true;
     }
     return false;

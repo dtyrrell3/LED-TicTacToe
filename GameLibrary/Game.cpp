@@ -2,17 +2,18 @@
 
 Game::Game(Adafruit_NeoPixel *strip1) {
     strip = strip1;
+    (*strip).setPixelColor(0, 150, 0, 0);
     uint32_t color0 = (*strip).Color(100, 0, 0);
     uint32_t color1 = (*strip).Color(0, 0, 100);
     board = &Board(strip);
     player0 = &Player(board, color0);
     player1 = &Player(board, color1);
-    player0Turn = true;
     playerWon = false;
     gameDraw = false;
 }
 
 void Game::play() {
+    // (*strip).setPixelColor(2, 150, 0, 0);
     (*board).reset();
     Serial.println("Entering Play");
     while(!playerWon && !gameDraw) {
