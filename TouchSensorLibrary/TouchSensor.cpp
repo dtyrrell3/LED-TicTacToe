@@ -24,6 +24,10 @@ boolean TouchSensor::touched() {
     return false;
 }
 
+/* Using a pin to measure capacitance/proximity of a touch
+ * is taken from http://playground.arduino.cc/Code/CapacitiveSensor.
+ * Credits go to the people who developed this. */
+
 uint8_t TouchSensor::readCapacitivePin(byte pinToMeasure) {
     // Variables used to translate from Arduino to AVR pin naming
   volatile uint8_t* port;

@@ -28,12 +28,17 @@ void Game::play() {
         takeTurn(player1);
     }
     delay(2500); // Delay 2.5 seconds before victory sequence
+    board->reset();
     if (playerWon) {
         board->victory();    
     } else if (gameDraw) {
         // Nobody won.
+        board->draw();
     }
+
     board->reset();
+    playerWon = false;
+    gameDraw = false;
 }
 
 void Game::takeTurn(Player *player) {
@@ -102,7 +107,7 @@ void Game::achievedVictory() {
     }
     /* If board is filled up, it's a draw. */
     for (byte i = 0; i < BOARD_SIZE; i++) {
-        if (!board->boardState[i]) {
+        if (board->boardState[i] == 0) {
             return;
         }
     }

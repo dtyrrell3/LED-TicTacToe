@@ -1,7 +1,7 @@
 #include "LED.h"
 
 LED::LED() {
-    // This should never be used.
+    // This should never be used without calling initalizeWithParams.
 }
 
 LED::LED(Adafruit_NeoPixel *strip1, byte num1, uint32_t color1) {
