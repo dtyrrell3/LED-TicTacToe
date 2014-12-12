@@ -6,9 +6,9 @@ Player::Player(Board *board1, uint32_t color1) {
 }
 
 byte Player::getMove() {
-    return (*board).getMove();
+    return board->getMove();
 }
 
 void Player::makeMove(byte numTile) {
-    (*board).makeMove(numTile, color);
+    board->makeMove(numTile, color);
 }

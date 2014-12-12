@@ -15,10 +15,7 @@ Board::Board(Adafruit_NeoPixel *strip1) {
 }
 
 void Board::reset() {
-    Serial.println("Entering Reset");
     for (int i = 0; i < BOARD_SIZE; i++) {
-        Serial.print("Turning off LED ");
-        Serial.println(i);
         ledArray[i].turnOff();
     }
     for (int i = 0; i < BOARD_SIZE; i++) {
@@ -31,13 +28,10 @@ boolean Board::pollTile(byte numTile) {
     if (numTile >= BOARD_SIZE) {
         return -1;
     }
-    Serial.print("Checking tile ");
-    Serial.println(numTile);
     return touchSensorArray[numTile].touched();
 }
 
 byte Board::getMove() {
-    Serial.println("Entering get Move");
     while (1) {
         for (int i = 0; i < BOARD_SIZE; i++) {
             if (pollTile(i)) {

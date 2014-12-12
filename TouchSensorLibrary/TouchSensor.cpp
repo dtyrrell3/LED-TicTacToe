@@ -1,7 +1,7 @@
 #include "TouchSensor.h"
 
 TouchSensor::TouchSensor() {
-  // This should never be used.
+  // This should never be used wihout initializeWithParams
 }
 
 TouchSensor::TouchSensor(byte sensitivity1, byte pin1, byte position1) {
@@ -17,18 +17,8 @@ void TouchSensor::initializeWithParams(byte sensitivity1, byte pin1, byte positi
 }
 
 boolean TouchSensor::touched() {
-    //Serial.println("Entering touched in touchSensor");
     uint8_t sensorValue = readCapacitivePin(pin);
-    // Serial.print("Received value of ");
-    // Serial.print(sensorValue);
-    // Serial.print(" with a sensitity of ");
-    // Serial.println(sensitivity);
     if (sensorValue >= sensitivity) {
-        Serial.print("Received value of ");
-        Serial.print(sensorValue);
-        Serial.print(" with a sensitity of ");
-        Serial.println(sensitivity);
-        // Serial.println(3);
         return true;
     }
     return false;
