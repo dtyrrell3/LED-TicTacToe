@@ -5,14 +5,24 @@ TouchSensor::TouchSensor() {
 }
 
 TouchSensor::TouchSensor(byte sensitivity1, byte pin1, byte position1) {
-    sensitivity = sensitivity1;
+    sensitivity = 3;
     pin = pin1;
     position = position1;
 }
 
 boolean TouchSensor::touched() {
+    //Serial.println("Entering touched in touchSensor");
     uint8_t sensorValue = readCapacitivePin(pin);
-    if (sensorValue >= sensitivity) {
+    // Serial.print("Received value of ");
+    // Serial.print(sensorValue);
+    // Serial.print(" with a sensitity of ");
+    // Serial.println(sensitivity);
+    if (sensorValue >= 3) {
+        Serial.print("Received value of ");
+        Serial.print(sensorValue);
+        Serial.print(" with a sensitity of ");
+        //Serial.println(sensitivity);
+        Serial.println(3);
         return true;
     }
     return false;

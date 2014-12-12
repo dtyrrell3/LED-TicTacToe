@@ -2,49 +2,62 @@
 
 Game::Game(Adafruit_NeoPixel *strip1) {
     strip = strip1;
-    uint32_t color0 = (*strip).color(100, 0, 0);
-    uint32_t color1 = (*strip).color(0, 0, 100);
-    board = Board(strip);
-    player0 = Player(&board, color0);
-    player1 = Player(&board, color1);
+    uint32_t color0 = (*strip).Color(100, 0, 0);
+    uint32_t color1 = (*strip).Color(0, 0, 100);
+    board = &Board(strip);
+    player0 = &Player(board, color0);
+    player1 = &Player(board, color1);
     player0Turn = true;
     playerWon = false;
     gameDraw = false;
 }
 
 void Game::play() {
-    while(!playerWon && !gameOver) {
-        takeTurn(&player0);
-        if (playerWon || gameOver) {
+    (*board).reset();
+    Serial.println("Entering Play");
+    while(!playerWon && !gameDraw) {
+        Serial.println("Beginning Player0's turn");
+        takeTurn(player0);
+        if (playerWon || gameDraw) {
             break;
         }
-        takeTurn(&player1);
+        Serial.println("Beginning Player1's turn");
+        takeTurn(player1);
     }
     delay(5000); // Delay 5 seconds before victory sequence
     if (playerWon) {
-        board.victory();    
+        (*board).victory();    
     } else if (gameDraw) {
         // Nobody won.
     }
-    board.reset();
+    (*board).reset();
 }
 
 void Game::takeTurn(Player *player) {
+    Serial.println("Entering Taketurn");
     boolean validMove = false;
     byte move;
     while (!validMove) {
         move = (*player).getMove();
+        Serial.print("Received move ");
+        Serial.println(move);
         validMove = checkValidMove(move);
+        Serial.print("The move was ");
+        Serial.println(validMove);
         if (validMove) {
             break;
         }
     }
     (*player).makeMove(move);
+    Serial.print("Made move ");
+    Serial.println(move);
     achievedVictory();
 }
 
 boolean Game::checkValidMove(byte numTile) {
-    if (board.boardState[numTile]) {
+    Serial.print("Entering check valid move on ");
+    Serial.println(numTile);
+    if ((*board).boardState[numTile]) {
         return false;
     }
     return true;
