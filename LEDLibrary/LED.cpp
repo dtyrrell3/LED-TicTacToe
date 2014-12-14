@@ -24,7 +24,6 @@ void LED::turnOn(uint32_t color1) {
 }
 
 void LED::turnOff() {
-    Serial.println("Entering turnOff");
     strip->setPixelColor(num, 0);
     strip->show();
     on = false;
